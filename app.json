@@ -1,16 +1,18 @@
 {
   "expo": {
-    "name": "TalentMatch",
-    "slug": "talentmatch",
+    "name": "DeuVaga",
+    "slug": "deuvaga",
     "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "talentmatch",
+    "scheme": "deuvaga",
     "userInterfaceStyle": "automatic",
     "ios": {
+      "bundleIdentifier": "com.deuvaga.app",
       "icon": "./assets/expo.icon"
     },
     "android": {
+      "package": "com.deuvaga.app",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",

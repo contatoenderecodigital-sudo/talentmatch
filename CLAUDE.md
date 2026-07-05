@@ -5,9 +5,9 @@
 > entre si e definem COMO construir. Leia os três inteiros antes de qualquer tarefa.
 > Nunca invente requisito que não está aqui ou nos docs. Se algo estiver ambíguo, pergunte antes de codar.
 >
-> **Nome:** "TalentMatch" é o nome provisório oficial (decisão do dono, 2026-07-04): usar no nome
-> do app, no bundle id e na pasta do repo. **Revisar antes da Fase 8 (publicação nas lojas)** por
-> risco de marca com "Match" — registrado em `docs/decisoes-ui.md` (era a pendência P13).
+> **Nome:** o produto se chama **DeuVaga** (nome oficial, decisão do dono em 2026-07-05 — INPI
+> sem resultados e domínios .com/.ai disponíveis, ver `docs/decisoes-ui.md`). Usar no nome de
+> exibição do app, no bundle id/package (`com.deuvaga.app`) e na pasta do repo.
 
 ---
 
@@ -252,7 +252,7 @@ Pendências que só o dono decide, detalhadas em `docs/revisao.md` seção 4:
 **P5** (repetição/refazer quiz) · **P6** (requisito objetivo não cumprido: eliminar vs alertar) ·
 **P7** (números dos tiers) · **P8** (MFA obrigatório desde o dia 1) · **P9** (escopo do
 consentimento pra Etapa 2) · **P10** (prazo de retenção) · **P11** (web-first vs lojas) ·
-**P12** (nativewind vs tamagui) · **P13** resolvida provisoriamente (TalentMatch — revisar antes
-da Fase 8, ver `docs/decisoes-ui.md`) · **P14** (NF-e automática vs manual,
+**P12** (nativewind vs tamagui) · **P13** resolvida (nome oficial: DeuVaga — ver
+`docs/decisoes-ui.md`) · **P14** (NF-e automática vs manual,
 junto da Fase PAG) · **P15** (role admin) · **P16** (qual gateway de pagamento — decidir antes da
 Fase PAG; nada no MVP depende disso). Se uma fase esbarrar numa delas, pare e pergunte.

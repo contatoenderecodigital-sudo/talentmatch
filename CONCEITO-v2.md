@@ -1,4 +1,4 @@
-# Conceito v2 — Triagem Comportamental pra Contratação (ex-TalentMatch)
+# Conceito v2 — DeuVaga: Triagem Comportamental pra Contratação
 
 > Versão reformulada da ideia. Substitui o enquadramento de "marketplace de swipe" do pitch antigo.
 > Nome, logo e código são novos: nada do material do campeonato é reaproveitado.
@@ -138,9 +138,8 @@ candidato: no MVP é a própria empresa, não um pool que você precisa encher a
 
 ## 10. Pendências pra fechar (nenhuma trava o build começar)
 
-- **Nome:** definir e checar em três lugares antes de casar: INPI (classe certa), domínio .com.br, e
-  disponibilidade do nome na App Store e Play Store. Evitar "Match" (marca do Match Group) e qualquer
-  coisa perto de Tinder.
+- **Nome: RESOLVIDO — DeuVaga (decisão do dono, 2026-07-05).** Busca no INPI sem resultados
+  (05/07/2026) e domínios .com e .ai disponíveis. Registro em `docs/decisoes-ui.md`.
 - **Preço:** validar as faixas com 3 a 5 donos reais antes de fixar.
 - **Custo da má contratação:** coletar o número local pra virar argumento de venda.
 - **Alvos DISC por cargo:** montar a tabela de perfil ideal por função (atendimento, caixa, produção,

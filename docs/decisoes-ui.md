@@ -6,4 +6,4 @@
 
 | Data | Decisão | Por quê / revisão |
 |---|---|---|
-| 2026-07-04 | **Nome: "TalentMatch" (provisório, decisão do dono).** Usado no nome do app, no bundle id e na pasta do repo (`C:\dev\talentmatch`). | **Revisar antes da Fase 8 (publicação nas lojas):** risco de marca com "Match" (Match Group) — ver CONCEITO-v2 §10. Checar INPI, domínio .com.br e disponibilidade nas stores antes de submeter. |
+| 2026-07-05 | **Nome oficial: "DeuVaga" (decisão do dono — substitui o provisório TalentMatch).** Usado no nome de exibição do app, slug/scheme, bundle id/package `com.deuvaga.app` e pasta do repo (`C:\dev\deuvaga`). | Verificado pelo dono em 05/07/2026: busca no INPI sem resultados; domínios .com e .ai disponíveis. **Sem pendência de revisão** — o alerta anterior (risco de marca com "Match") caducou com a troca do nome. |

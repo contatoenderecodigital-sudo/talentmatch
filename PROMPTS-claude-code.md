@@ -1,7 +1,6 @@
-# Prompts pro Claude Code — TalentMatch MVP v2 (triagem comportamental)
+# Prompts pro Claude Code — DeuVaga MVP v2 (triagem comportamental)
 
-> "TalentMatch" é o nome provisório oficial (usar em app, bundle id e repo).
-> Revisar antes da Fase 8 — risco de marca com "Match", ver docs/decisoes-ui.md.
+> Nome oficial: **DeuVaga** (app, bundle id/package `com.deuvaga.app`, repo) — ver docs/decisoes-ui.md.
 
 Como usar:
 1. Cria o repo **fora do OneDrive, caminho sem acento/espaço** (ex: `C:\dev\<nome>`), abre no
@@ -200,9 +199,8 @@ Fase 8. Objetivo: preparar pra publicar. Escopo depende da pendência P11 (web-f
 1. Gere o build web (expo export) e me diga como servir (a página do quiz precisa de URL pública
    estável — é ela que vai no QR code).
 2. Publique política de privacidade e termos em URL própria (exigência LGPD, e das lojas se P11).
-3. SE P11 incluir lojas: PRIMEIRO o nome definitivo (TalentMatch é provisório — reveja
-   docs/decisoes-ui.md e a pendência de marca antes de submeter); depois app.json/eas.json
-   (nome, bundle id, ícones, splash),
+3. SE P11 incluir lojas: app.json/eas.json (nome DeuVaga, bundle id/package com.deuvaga.app,
+   ícones, splash),
    assets de loja, screenshots, conta demo pro revisor, EAS Submit, e o passo a passo do que EU
    preciso fazer nas contas Apple/Google.
 4. Rode o checklist da seção 9 do SECURITY.md item por item e me devolva o resultado.

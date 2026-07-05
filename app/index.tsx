@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function Index() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>TalentMatch</Text>
+      <Text style={styles.title}>DeuVaga</Text>
       <Text>Fase 0 — setup. Fluxos entram nas próximas fases.</Text>
     </View>
   );

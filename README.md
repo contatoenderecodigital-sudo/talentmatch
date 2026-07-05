@@ -1,4 +1,4 @@
-# TalentMatch (nome provisório — ver docs/decisoes-ui.md)
+# DeuVaga
 
 Triagem comportamental (DISC) pra contratação em cargos de alta rotatividade.
 Especificação: leia **CONCEITO-v2.md** (produto — prevalece em conflito), **CLAUDE.md** (como

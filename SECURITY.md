@@ -3,7 +3,7 @@
 > Padrão de "sem fazer nas coxas". Nenhuma fase é dada como pronta se violar algo aqui.
 > Este arquivo complementa o CLAUDE.md e tem a mesma autoridade. Em conflito de produto,
 > o CONCEITO-v2.md prevalece sobre os dois.
-> "TalentMatch" é o nome provisório oficial; revisar antes da Fase 8 (ver docs/decisoes-ui.md).
+> Produto: **DeuVaga** (nome oficial — ver docs/decisoes-ui.md).
 
 ---
 
