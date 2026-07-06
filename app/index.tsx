@@ -1,15 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Redirect } from 'expo-router';
+import { Carregando } from '@/components/ui';
+import { useSession } from '@/hooks/useSession';
 
 export default function Index() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>DeuVaga</Text>
-      <Text>Fase 0 — setup. Fluxos entram nas próximas fases.</Text>
-    </View>
-  );
+  const { session, carregando } = useSession();
+  if (carregando) return <Carregando />;
+  return <Redirect href={session ? '/(empresa)/vagas' : '/(auth)/login'} />;
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 8 },
-  title: { fontSize: 24, fontWeight: 'bold' },
-});

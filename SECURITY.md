@@ -43,9 +43,9 @@
 
 - Conta existe **só pra empresa** no MVP. Candidato não tem login (ver §3b).
 - Verificação de email obrigatória antes de usar o app.
-- MFA (2FA) obrigatório pra conta de empresa (ela administra dado de terceiros).
-  **Pendência P8:** avaliar a fricção no onboarding de venda presencial; até decisão em
-  contrário, obrigatório vale.
+- MFA (2FA) **disponível e fortemente recomendado** pra conta de empresa; **opcional no MVP**
+  (decisão P8=b por delegação do dono, 2026-07-06 — fricção no onboarding de venda presencial).
+  Vira **obrigatório antes de escalar** (checklist §9).
 - Política de senha forte + rate limit no login (Supabase Auth já oferece, ativar).
 - Sessões com expiração e refresh token. Logout invalida sessão.
 
@@ -83,9 +83,9 @@ O quiz por link é a função central do MVP e a única porta sem autenticação
   por candidatura, não por conta — o candidato não tem conta).
 - **Finalidade explícita no termo:** o dado é usado pra análise de compatibilidade com a vaga X
   da empresa Y. **Pendência P9:** se a Etapa 2 (pool/marketplace, CONCEITO-v2 §6) for exibir o
-  perfil a outras empresas, isso é finalidade nova — ou o termo do MVP já prevê como opt-in
-  separado, ou haverá re-consentimento antes de ligar a Etapa 2. Decidir ANTES do primeiro
-  candidato real responder.
+  perfil a outras empresas, isso é finalidade nova. **Decisão P9=a (delegada, 2026-07-06):** o
+  termo do MVP prevê o pool como **opt-in separado** — checkbox opcional no quiz, salvo em
+  `candidaturas.consent_pool` (default false). A Etapa 2 só exibe a outros quem marcou.
 - **Minimização:** só nome, telefone, cidade (+ idade/escolaridade opcionais). Sem email, sem
   CPF, sem foto no MVP. Campo novo só entra com justificativa de uso.
 - **Direito de exclusão:** o candidato não tem login, então precisa de canal próprio — link
@@ -95,8 +95,8 @@ O quiz por link é a função central do MVP e a única porta sem autenticação
 - **Portabilidade:** exportar os dados do titular em JSON sob pedido, pelo mesmo canal.
 - **Política de privacidade e termos de uso** publicados em URL própria (exigência da LGPD e,
   se P11 mantiver lojas, das stores).
-- **Retenção:** candidatura sem interação tem prazo de expurgo. **Pendência P10** (6, 12 ou 24
-  meses) — o prazo precisa estar fixado antes da Fase 5 ir pro ar com candidato real.
+- **Retenção:** candidatura sem interação há **12 meses** é expurgada (decisão P10 delegada,
+  2026-07-06): hard delete dos dados pessoais + anonimização no log; métricas agregadas podem ficar.
 
 ## 6. Auditabilidade (a "contabilidade" de quem fez o quê)
 
@@ -155,7 +155,7 @@ Tabela `audit_log` append-only:
 - [ ] Link público protegido: token ≥128 bits, insert só via Edge Function, rate limit ativo,
       nenhuma policy aberta pro `anon`
 - [ ] `service_role` só em Edge Function (chaves de gateway idem, quando a Fase PAG existir)
-- [ ] MFA ativo pra empresa, email verificado
+- [ ] Email verificado pra toda empresa; MFA disponível (obrigatório antes de escalar — P8)
 - [ ] Consentimento LGPD versionado na candidatura + canal de exclusão do candidato sem conta
       funcionando (hard delete + anonimização do log)
 - [ ] Prazo de retenção fixado (P10) e expurgo implementado

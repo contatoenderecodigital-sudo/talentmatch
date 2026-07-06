@@ -14,7 +14,15 @@
 | P13 | Nome | **DeuVaga** (oficial, 2026-07-05; INPI sem resultados, .com/.ai livres) |
 | — | Billing | Fora do MVP: interface `BillingProvider` + mock; gateway só na Fase PAG (P16) |
 
-## 2. Abertas (só o dono decide) — com recomendação
+## 2. Pendências delegadas (2026-07-06)
+
+> O dono delegou: **"pode fazer tudo sem pausar"**. As recomendações da tabela abaixo passam a
+> valer como decisão de trabalho — reversíveis, é só responder pelo número que eu ajusto.
+> Adotadas: P5=a (rejeitar refazer), P6=b (exibir com alerta), P7=placeholders (Básico 1 vaga
+> ativa/30 análises-mês; Intermediário 3/100; Alto volume ilimitado — mock, sem cobrança),
+> P8=b (MFA opcional no MVP, aviso forte no onboarding — SECURITY.md §3 ajustado),
+> P9=a (termo prevê pool da Etapa 2 como opt-in separado — campo `consent_pool`),
+> P10=12 meses, P11=web-first, P12=nativewind, P14=manual, P15=só dashboard, P16=Fase PAG.
 
 | # | Pergunta | Opções | Recomendação | Bloqueia |
 |---|---|---|---|---|

@@ -81,6 +81,7 @@ Consentimento vive aqui (é dado por candidatura).
 | status | text | NOT NULL default 'novo', CHECK IN ('novo','visto','descartado','entrevistar') |
 | consent_versao | text | NOT NULL |
 | consent_at | timestamptz | NOT NULL |
+| consent_pool | boolean | NOT NULL default false — opt-in pro pool/Etapa 2 (P9=a) |
 | created_at | timestamptz | |
 
 UNIQUE (vaga_id, candidato_id). Índice (vaga_id, score DESC) pro deck.
