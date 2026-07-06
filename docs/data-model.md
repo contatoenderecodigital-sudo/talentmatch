@@ -135,6 +135,9 @@ bloqueada. O card chega via RPC; o contato, só via `revelar_contato`.
 
 - **`match_score(d,i,s,c, dt,it,st,ct) → int`** — função pura (IMMUTABLE), fórmula do CLAUDE.md
   §4. Fixtures compartilhadas com `lib/matching.ts` (mesmos vetores → mesmo score).
+- **`get_vaga_publica(token) → setof vaga_publica`** — dados públicos da vaga (título, empresa,
+  cidade, modalidade, período) pelo `quiz_token`, só com `quiz_ativo`. Única função com EXECUTE
+  pro role `anon` (a página do quiz precisa dela antes do envio).
 - **`get_deck(vaga_id) → setof card`** — valida que a vaga é da empresa logada; retorna
   candidatura_id, nome, cidade, idade, escolaridade, disc_d/i/s/c, score, status, created_at,
   ordenado por score DESC. **Sem telefone.** Leitura simples é montada no app (disc-leituras.md).
