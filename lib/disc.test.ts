@@ -3,6 +3,7 @@ import {
   ALVOS_CARGO,
   calculaDisc,
   eixosOrdenados,
+  escolaridadeAbaixo,
   leituraDoPerfil,
   QUIZ,
   type RespostaQuiz,
@@ -101,6 +102,22 @@ describe('leituraDoPerfil (fixtures de docs/disc-leituras.md)', () => {
     const l = leituraDoPerfil({ d: 60, i: 10, s: 20, c: 10 });
     expect(l.rotulo).toBe('Direto e decidido');
     expect(l.texto).toContain('Também é constante');
+  });
+});
+
+describe('escolaridadeAbaixo (RN-09: vazio nunca sinaliza)', () => {
+  it('vazio nunca alerta', () => {
+    expect(escolaridadeAbaixo(null, 'superior')).toBe(false);
+    expect(escolaridadeAbaixo('medio', null)).toBe(false);
+    expect(escolaridadeAbaixo(null, null)).toBe(false);
+  });
+  it('abaixo do mínimo alerta', () => {
+    expect(escolaridadeAbaixo('fundamental', 'medio')).toBe(true);
+    expect(escolaridadeAbaixo('medio', 'superior')).toBe(true);
+  });
+  it('igual ou acima não alerta', () => {
+    expect(escolaridadeAbaixo('medio', 'medio')).toBe(false);
+    expect(escolaridadeAbaixo('superior', 'tecnico')).toBe(false);
   });
 });
 

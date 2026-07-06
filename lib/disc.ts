@@ -82,3 +82,27 @@ export const ALVOS_CARGO: AlvoCargo[] = [
 ];
 
 export const ALVO_NEUTRO: VetorDisc = { d: 20, i: 30, s: 30, c: 20 };
+
+// ---- Escala ordenada de escolaridade (CLAUDE.md §4) ----
+
+const ESCALA_ESCOLARIDADE: Record<string, number> = {
+  fundamental: 1,
+  medio: 2,
+  tecnico: 3,
+  superior: 4,
+};
+
+/**
+ * Requisito objetivo (RN-09 / P6 delegada: exibir com alerta, nunca eliminar).
+ * Campo vazio NUNCA sinaliza. Retorna true só se preenchido e abaixo do mínimo da vaga.
+ */
+export function escolaridadeAbaixo(
+  escolaridade: string | null,
+  minimo: string | null
+): boolean {
+  if (!escolaridade || !minimo) return false;
+  const e = ESCALA_ESCOLARIDADE[escolaridade];
+  const m = ESCALA_ESCOLARIDADE[minimo];
+  if (e === undefined || m === undefined) return false;
+  return e < m;
+}
