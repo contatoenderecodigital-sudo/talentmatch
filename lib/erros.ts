@@ -23,3 +23,16 @@ export function traduzErroBanco(mensagem: string): string {
     return 'Já existe uma empresa cadastrada com esse CNPJ.';
   return `Algo deu errado: ${mensagem}`;
 }
+
+// Códigos de erro da Edge Function submit-quiz → mensagem pro candidato.
+export function traduzErroQuiz(codigo: string): string {
+  const mapa: Record<string, string> = {
+    link_inativo: 'Esta vaga não está mais recebendo candidaturas.',
+    ja_respondeu: 'Você já respondeu o quiz desta vaga com esse telefone. A empresa já tem a sua candidatura!',
+    muitos_envios: 'Muitos envios em pouco tempo. Aguarde uma hora e tente de novo.',
+    telefone_invalido: 'Confira o telefone: use DDD + número (ex.: 49 99999-9999).',
+    termo_desatualizado: 'O termo de consentimento foi atualizado. Recarregue a página e tente de novo.',
+    consentimento_obrigatorio: 'É preciso aceitar o termo de consentimento pra se candidatar.',
+  };
+  return mapa[codigo] ?? 'Não foi possível enviar sua candidatura. Tente de novo em instantes.';
+}

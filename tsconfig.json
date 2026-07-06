@@ -17,5 +17,8 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
-  ]
+  ],
+  // Edge Functions são código Deno (imports npm:/.ts) — o tsc do app não as checa.
+  // Exceção: _shared/scoring.ts é importado pelo app via lib/ e continua checado por lá.
+  "exclude": ["node_modules", "supabase/functions"]
 }

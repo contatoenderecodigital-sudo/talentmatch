@@ -5,6 +5,6 @@ const expoConfig = require("eslint-config-expo/flat");
 module.exports = defineConfig([
   expoConfig,
   {
-    ignores: ["dist/*"],
+    ignores: ["dist/*", "supabase/functions/*/index.ts", "supabase/functions/_shared/quiz-data.ts"],
   }
 ]);

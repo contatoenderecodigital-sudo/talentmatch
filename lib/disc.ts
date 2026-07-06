@@ -1,54 +1,22 @@
-// Scoring do quiz DISC + leitura em linguagem simples + alvos por cargo.
+// Quiz DISC no app: leitura em linguagem simples + alvos por cargo + wrapper do scoring.
 // Fontes únicas: docs/disc-quiz.json, docs/disc-leituras.md, docs/disc-alvos-cargo.md.
+// O cálculo em si vive em supabase/functions/_shared/scoring.ts (compartilhado com a EF).
 import quiz from '@/docs/disc-quiz.json';
+import {
+  calculaDiscCore,
+  type RespostaQuiz,
+  type VetorDisc,
+} from '@/supabase/functions/_shared/scoring';
 
 export type Eixo = 'd' | 'i' | 's' | 'c';
-export interface VetorDisc {
-  d: number;
-  i: number;
-  s: number;
-  c: number;
-}
-export interface RespostaQuiz {
-  pergunta_id: string;
-  opcao_id: string;
-}
+export type { RespostaQuiz, VetorDisc };
 
 export const QUIZ = quiz;
 export const TOTAL_PERGUNTAS = quiz.perguntas.length;
-// Toda opção soma exatamente 4 pontos (3 principal + 1 secundário) — validado em teste.
-const PONTOS_POR_RESPOSTA = 4;
-const DENOMINADOR = TOTAL_PERGUNTAS * PONTOS_POR_RESPOSTA; // 48
 
 /** Calcula o vetor DISC normalizado (0–100 por eixo; eixos somam ~100). */
 export function calculaDisc(respostas: RespostaQuiz[]): VetorDisc {
-  if (respostas.length !== TOTAL_PERGUNTAS) {
-    throw new Error(`Esperadas ${TOTAL_PERGUNTAS} respostas, recebidas ${respostas.length}`);
-  }
-  const soma: VetorDisc = { d: 0, i: 0, s: 0, c: 0 };
-  const respondidas = new Set<string>();
-
-  for (const r of respostas) {
-    if (respondidas.has(r.pergunta_id)) {
-      throw new Error(`Pergunta respondida duas vezes: ${r.pergunta_id}`);
-    }
-    const pergunta = quiz.perguntas.find((p) => p.id === r.pergunta_id);
-    if (!pergunta) throw new Error(`Pergunta desconhecida: ${r.pergunta_id}`);
-    const opcao = pergunta.opcoes.find((o) => o.id === r.opcao_id);
-    if (!opcao) throw new Error(`Opção inválida ${r.opcao_id} pra ${r.pergunta_id}`);
-    respondidas.add(r.pergunta_id);
-    soma.d += opcao.pesos.d;
-    soma.i += opcao.pesos.i;
-    soma.s += opcao.pesos.s;
-    soma.c += opcao.pesos.c;
-  }
-
-  return {
-    d: Math.round((100 * soma.d) / DENOMINADOR),
-    i: Math.round((100 * soma.i) / DENOMINADOR),
-    s: Math.round((100 * soma.s) / DENOMINADOR),
-    c: Math.round((100 * soma.c) / DENOMINADOR),
-  };
+  return calculaDiscCore(quiz, respostas);
 }
 
 // ---- Leitura em linguagem simples (docs/disc-leituras.md) ----

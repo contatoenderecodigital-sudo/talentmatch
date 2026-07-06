@@ -1,0 +1,11 @@
+# Config mínima do Supabase CLI. Campos omitidos usam o default.
+project_id = "deuvaga"
+
+# O quiz é público por design: a segurança é o token da vaga + rate limit na função
+# (SECURITY.md §3b). verify_jwt = false também mantém compatibilidade com as
+# chaves novas (sb_publishable_), que não são JWT.
+[functions.submit-quiz]
+verify_jwt = false
+
+[functions.lgpd-request]
+verify_jwt = false
