@@ -11,3 +11,15 @@ const MAPA: Record<string, string> = {
 export function traduzErroAuth(mensagem: string): string {
   return MAPA[mensagem] ?? `Algo deu errado: ${mensagem}`;
 }
+
+// Erros de regra de negócio vindos do banco (triggers/RPCs da Fase 3).
+export function traduzErroBanco(mensagem: string): string {
+  if (mensagem.includes('plano inativo')) return 'Escolha um plano antes de abrir a vaga.';
+  if (mensagem.includes('limite de vagas'))
+    return 'Você atingiu o limite de vagas abertas do seu plano. Feche uma vaga ou mude de plano.';
+  if (mensagem.includes('contato indisponivel'))
+    return 'Marque "quero entrevistar" antes de ver o contato.';
+  if (mensagem.includes('duplicate key') && mensagem.includes('cnpj'))
+    return 'Já existe uma empresa cadastrada com esse CNPJ.';
+  return `Algo deu errado: ${mensagem}`;
+}

@@ -101,6 +101,54 @@ export function LinkTexto({ titulo, onPress }: { titulo: string; onPress: () => 
   );
 }
 
+export function Selecao<T extends string>({
+  rotulo,
+  opcoes,
+  valor,
+  onChange,
+  erro,
+}: {
+  rotulo: string;
+  opcoes: readonly { id: T; nome: string }[];
+  valor: T | null;
+  onChange: (v: T) => void;
+  erro?: string;
+}) {
+  return (
+    <View className="mb-4">
+      <Text className="mb-1 font-medium text-gray-700">{rotulo}</Text>
+      <View className="flex-row flex-wrap gap-2">
+        {opcoes.map((o) => (
+          <Pressable
+            key={o.id}
+            accessibilityRole="button"
+            onPress={() => onChange(o.id)}
+            className={`rounded-full border px-3 py-2 ${valor === o.id ? 'border-primaria bg-emerald-50' : 'border-gray-300 bg-white'}`}>
+            <Text className={valor === o.id ? 'font-medium text-primaria' : 'text-gray-700'}>
+              {o.nome}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+      {erro ? <Text className="mt-1 text-sm text-red-600">{erro}</Text> : null}
+    </View>
+  );
+}
+
+export function Chip({ texto, tom }: { texto: string; tom: 'verde' | 'cinza' | 'vermelho' | 'azul' }) {
+  const cores = {
+    verde: 'bg-emerald-100 text-emerald-800',
+    cinza: 'bg-gray-100 text-gray-600',
+    vermelho: 'bg-red-100 text-red-700',
+    azul: 'bg-blue-100 text-blue-700',
+  }[tom];
+  return (
+    <View className={`self-start rounded-full px-2 py-0.5 ${cores.split(' ')[0]}`}>
+      <Text className={`text-xs font-medium ${cores.split(' ')[1]}`}>{texto}</Text>
+    </View>
+  );
+}
+
 export function Carregando() {
   return (
     <View className="flex-1 items-center justify-center bg-white">

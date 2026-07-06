@@ -1,0 +1,12 @@
+{
+  "descricao": "Fixtures compartilhadas do match_score: rodam em lib/matching.test.ts (TS) e em supabase/tests/match_score_test.sql (SQL, gerado por scripts/gen-sql-fixtures.mjs). Mesmos vetores => mesmo score, senão a fase não passa (CLAUDE.md §4).",
+  "casos": [
+    { "nome": "fit alto atendimento", "v": [17, 48, 25, 10], "alvo": [15, 40, 30, 15], "score": 95 },
+    { "nome": "perfil D em vaga I", "v": [40, 15, 30, 15], "alvo": [15, 40, 30, 15], "score": 82 },
+    { "nome": "perfil SC em vaga I", "v": [10, 15, 40, 35], "alvo": [15, 40, 30, 15], "score": 83 },
+    { "nome": "vetor identico ao alvo", "v": [15, 40, 30, 15], "alvo": [15, 40, 30, 15], "score": 100 },
+    { "nome": "distancia maxima teorica", "v": [0, 0, 0, 0], "alvo": [100, 100, 100, 100], "score": 0 },
+    { "nome": "caixa perfil C", "v": [8, 17, 33, 42], "alvo": [10, 20, 35, 35], "score": 96 },
+    { "nome": "zeros contra zeros", "v": [0, 0, 0, 0], "alvo": [0, 0, 0, 0], "score": 100 }
+  ]
+}

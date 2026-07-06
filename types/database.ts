@@ -46,6 +46,7 @@ export interface Database {
         Row: { id: string; role: 'empresa'; created_at: string; updated_at: string };
         Insert: { id: string; role?: 'empresa' };
         Update: { role?: 'empresa' };
+        Relationships: [];
       };
       empresas: {
         Row: {
@@ -61,6 +62,7 @@ export interface Database {
         };
         Insert: { id?: string; profile_id: string; nome: string; cnpj: string; cidade: string };
         Update: { nome?: string; cnpj?: string; cidade?: string };
+        Relationships: [];
       };
       vagas: {
         Row: {
@@ -110,6 +112,7 @@ export interface Database {
           disc_target_s?: number;
           disc_target_c?: number;
         };
+        Relationships: [];
       };
       candidatos: {
         Row: {
@@ -137,6 +140,7 @@ export interface Database {
           idade?: number | null;
           escolaridade?: Escolaridade | null;
         };
+        Relationships: [];
       };
       candidaturas: {
         Row: {
@@ -171,6 +175,7 @@ export interface Database {
           consent_pool?: boolean;
         };
         Update: { status?: CandidaturaStatus };
+        Relationships: [];
       };
     };
     Views: Record<string, never>;
