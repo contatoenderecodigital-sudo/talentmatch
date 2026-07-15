@@ -2,14 +2,7 @@
   "buildCommand": "npx expo export --platform web",
   "outputDirectory": "dist",
   "framework": null,
-  "cleanUrls": true,
-  "trailingSlash": false,
   "rewrites": [
-    { "source": "/q/:token", "destination": "/q/[token].html" },
-    { "source": "/vaga/:id", "destination": "/vaga/[id].html" },
-    { "source": "/vaga/:id/deck", "destination": "/vaga/[id]/deck.html" },
-    { "source": "/vaga/:id/editar", "destination": "/vaga/[id]/editar.html" },
-    { "source": "/vaga/:id/funil", "destination": "/vaga/[id]/funil.html" },
-    { "source": "/:path*", "destination": "/+not-found.html" }
+    { "source": "/((?!_expo|assets|favicon).*)", "destination": "/index.html" }
   ]
 }
