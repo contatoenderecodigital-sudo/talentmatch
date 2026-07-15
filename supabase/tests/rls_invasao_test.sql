@@ -3,6 +3,8 @@
 -- Tudo roda numa transação e dá ROLLBACK no fim — não suja o banco.
 -- Saída esperada: só linhas "PASS ...". Qualquer "FAIL" = fase reprovada.
 
+create extension if not exists pgcrypto; -- crypt()/gen_salt() pros usuários de teste
+
 begin;
 
 -- Duas empresas (A e B)

@@ -2,6 +2,9 @@
 -- Cria: 1 conta de empresa confirmada (dev@deuvaga.local / senha123), 2 vagas,
 -- 3 candidatos e 4 candidaturas com score calculado pela própria match_score.
 
+-- crypt()/gen_salt() pra hash de senha do usuário de teste (só ambiente local).
+create extension if not exists pgcrypto;
+
 insert into auth.users (
   instance_id, id, aud, role, email, encrypted_password,
   email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at

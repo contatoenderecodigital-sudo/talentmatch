@@ -38,7 +38,9 @@ create table public.vagas (
   disc_target_i int not null check (disc_target_i between 0 and 100),
   disc_target_s int not null check (disc_target_s between 0 and 100),
   disc_target_c int not null check (disc_target_c between 0 and 100),
-  quiz_token text not null unique default encode(gen_random_bytes(16), 'hex'),
+  -- 2 UUIDv4 concatenados = 64 hex chars, ~244 bits aleatórios (>= 128 exigidos, SECURITY.md §3b).
+  -- gen_random_uuid() é nativo do Postgres 13+; evita a dependência de pgcrypto/gen_random_bytes.
+  quiz_token text not null unique default replace(gen_random_uuid()::text || gen_random_uuid()::text, '-', ''),
   quiz_ativo boolean not null default true,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
