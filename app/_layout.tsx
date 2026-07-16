@@ -2,6 +2,7 @@ import '../global.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
 import { Text, View } from 'react-native';
+import { SessionProvider } from '@/hooks/useSession';
 import { configOk } from '@/lib/supabase';
 
 const queryClient = new QueryClient({
@@ -25,7 +26,9 @@ export default function RootLayout() {
   if (!configOk) return <ErroConfig />;
   return (
     <QueryClientProvider client={queryClient}>
-      <Stack screenOptions={{ headerShown: false }} />
+      <SessionProvider>
+        <Stack screenOptions={{ headerShown: false }} />
+      </SessionProvider>
     </QueryClientProvider>
   );
 }
