@@ -3,7 +3,7 @@ import { router } from 'expo-router';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Alerta, Botao, Campo, LinkTexto, Screen, Subtitulo, Titulo } from '@/components/ui';
+import { Alerta, Botao, Cabecalho, Campo, LinkTexto, Screen } from '@/components/ui';
 import { traduzErroAuth } from '@/lib/erros';
 import { supabase } from '@/lib/supabase';
 
@@ -33,8 +33,7 @@ export default function Login() {
 
   return (
     <Screen>
-      <Titulo>DeuVaga</Titulo>
-      <Subtitulo>Entre com a conta da sua empresa</Subtitulo>
+      <Cabecalho titulo="DeuVaga" subtitulo="A triagem comportamental que acerta a contratação" />
       {erro ? <Alerta tipo="erro">{erro}</Alerta> : null}
       <Controller
         control={control}

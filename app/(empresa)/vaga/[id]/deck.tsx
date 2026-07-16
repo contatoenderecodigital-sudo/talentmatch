@@ -1,24 +1,12 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { Text, View } from 'react-native';
-import { Alerta, Botao, Carregando, LinkTexto, Screen, Subtitulo, Titulo } from '@/components/ui';
+import { Alerta, BarraDisc, Botao, Carregando, Cartao, LinkTexto, Screen, SeloScore, Subtitulo, Titulo } from '@/components/ui';
 import { useAtualizarStatus, useDeck } from '@/hooks/useDeck';
 import { useVaga } from '@/hooks/useVagas';
 import { escolaridadeAbaixo, leituraDoPerfil } from '@/lib/disc';
 import { traduzErroBanco } from '@/lib/erros';
 import type { CardDeck } from '@/types/database';
-
-function BarraDisc({ rotulo, valor }: { rotulo: string; valor: number }) {
-  return (
-    <View className="mb-1 flex-row items-center gap-2">
-      <Text className="w-4 text-xs font-semibold text-gray-500">{rotulo}</Text>
-      <View className="h-2 flex-1 rounded-full bg-gray-100">
-        <View className="h-2 rounded-full bg-primaria" style={{ width: `${Math.min(valor, 100)}%` }} />
-      </View>
-      <Text className="w-8 text-right text-xs text-gray-500">{valor}</Text>
-    </View>
-  );
-}
 
 export default function Deck() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -86,20 +74,17 @@ export default function Deck() {
       <Subtitulo>{vaga.data?.titulo}</Subtitulo>
       {erro ? <Alerta tipo="erro">{erro}</Alerta> : null}
 
-      <View className="mb-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+      <Cartao>
         <View className="flex-row items-start justify-between">
           <View className="flex-1 pr-2">
-            <Text className="text-xl font-bold text-gray-900">{atual.nome}</Text>
-            <Text className="text-gray-600">
+            <Text className="text-xl font-extrabold text-tinta">{atual.nome}</Text>
+            <Text className="text-[#5b6b6a]">
               {atual.cidade}
               {atual.idade ? ` · ${atual.idade} anos` : ''}
               {atual.escolaridade ? ` · ${atual.escolaridade}` : ''}
             </Text>
           </View>
-          <View className="items-center rounded-xl bg-emerald-50 px-3 py-2">
-            <Text className="text-2xl font-bold text-primaria">{atual.score}%</Text>
-            <Text className="text-xs text-primaria">de fit</Text>
-          </View>
+          <SeloScore valor={atual.score} />
         </View>
 
         {alertaEscolaridade ? (
@@ -108,14 +93,14 @@ export default function Deck() {
           </View>
         ) : null}
 
-        <Text className="mt-3 font-semibold text-gray-900">{leitura.rotulo}</Text>
-        <Text className="mb-4 text-gray-700">{leitura.texto}</Text>
+        <Text className="mt-4 font-bold text-tinta">{leitura.rotulo}</Text>
+        <Text className="mb-4 text-[#33514f]">{leitura.texto}</Text>
 
         <BarraDisc rotulo="D" valor={atual.disc_d} />
         <BarraDisc rotulo="I" valor={atual.disc_i} />
         <BarraDisc rotulo="S" valor={atual.disc_s} />
         <BarraDisc rotulo="C" valor={atual.disc_c} />
-      </View>
+      </Cartao>
 
       <Botao titulo="Quero entrevistar ✓" onPress={() => agir('entrevistar')} carregando={mudar.isPending} />
       <View className="flex-row gap-3">
