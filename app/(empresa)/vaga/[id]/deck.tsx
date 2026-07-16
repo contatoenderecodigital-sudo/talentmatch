@@ -1,7 +1,7 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { Text, View } from 'react-native';
-import { Alerta, BarraDisc, Botao, Carregando, Cartao, LinkTexto, Screen, SeloScore, Subtitulo, Titulo } from '@/components/ui';
+import { Alerta, Avatar, BarraDisc, BotaoCircular, Botao, Cabecalho, Carregando, Cartao, LinkTexto, Screen, SeloScore } from '@/components/ui';
 import { useAtualizarStatus, useDeck } from '@/hooks/useDeck';
 import { useVaga } from '@/hooks/useVagas';
 import { escolaridadeAbaixo, leituraDoPerfil } from '@/lib/disc';
@@ -49,15 +49,13 @@ export default function Deck() {
   if (!atual) {
     return (
       <Screen>
-        <Titulo>Candidatos</Titulo>
-        <Subtitulo>{vaga.data?.titulo}</Subtitulo>
+        <Cabecalho titulo="Candidatos" subtitulo={vaga.data?.titulo} aoVoltar={() => router.push(`/(empresa)/vaga/${id}`)} />
         <Alerta tipo="info">
           {total === 0
             ? 'Ninguém respondeu o quiz ainda. Divulgue o link da vaga!'
             : 'Triagem em dia: todos os candidatos foram revisados.'}
         </Alerta>
         <Botao titulo="Ver entrevistas e descartados" variante="secundaria" onPress={() => router.push(`/(empresa)/vaga/${id}/funil`)} />
-        <LinkTexto titulo="← Voltar pra vaga" onPress={() => router.push(`/(empresa)/vaga/${id}`)} />
       </Screen>
     );
   }
@@ -65,24 +63,36 @@ export default function Deck() {
   const leitura = leituraDoPerfil({ d: atual.disc_d, i: atual.disc_i, s: atual.disc_s, c: atual.disc_c });
   const alertaEscolaridade = escolaridadeAbaixo(atual.escolaridade, vaga.data?.escolaridade_min ?? null);
 
+  const dock = (
+    <View className="flex-row items-center justify-center gap-6">
+      <BotaoCircular icone="close" variante="nao" onPress={() => agir('descartado')} desabilitado={mudar.isPending} />
+      <BotaoCircular icone="checkmark" variante="sim" grande onPress={() => agir('entrevistar')} desabilitado={mudar.isPending} />
+      <BotaoCircular icone="play-skip-forward" variante="neutro" onPress={pular} desabilitado={mudar.isPending} />
+    </View>
+  );
+
   return (
-    <Screen>
-      <View className="flex-row items-center justify-between">
-        <Titulo>Candidatos</Titulo>
-        <Text className="text-sm text-gray-500">{fila.length} na fila</Text>
-      </View>
-      <Subtitulo>{vaga.data?.titulo}</Subtitulo>
+    <Screen rodape={dock}>
+      <Cabecalho
+        titulo="Candidatos"
+        subtitulo={vaga.data?.titulo}
+        aoVoltar={() => router.push(`/(empresa)/vaga/${id}`)}
+        direita={<Text className="text-sm font-semibold text-white/90">{fila.length} na fila</Text>}
+      />
       {erro ? <Alerta tipo="erro">{erro}</Alerta> : null}
 
       <Cartao>
-        <View className="flex-row items-start justify-between">
-          <View className="flex-1 pr-2">
-            <Text className="text-xl font-extrabold text-tinta">{atual.nome}</Text>
-            <Text className="text-[#5b6b6a]">
-              {atual.cidade}
-              {atual.idade ? ` · ${atual.idade} anos` : ''}
-              {atual.escolaridade ? ` · ${atual.escolaridade}` : ''}
-            </Text>
+        <View className="flex-row items-center justify-between">
+          <View className="flex-1 flex-row items-center gap-3 pr-2">
+            <Avatar nome={atual.nome} tam={54} />
+            <View className="flex-1">
+              <Text className="text-xl font-extrabold text-tinta">{atual.nome}</Text>
+              <Text className="text-[13px] text-[#5b6b6a]">
+                {atual.cidade}
+                {atual.idade ? ` · ${atual.idade} anos` : ''}
+                {atual.escolaridade ? ` · ${atual.escolaridade}` : ''}
+              </Text>
+            </View>
           </View>
           <SeloScore valor={atual.score} />
         </View>
@@ -102,18 +112,7 @@ export default function Deck() {
         <BarraDisc rotulo="C" valor={atual.disc_c} />
       </Cartao>
 
-      <Botao titulo="Quero entrevistar ✓" onPress={() => agir('entrevistar')} carregando={mudar.isPending} />
-      <View className="flex-row gap-3">
-        <View className="flex-1">
-          <Botao titulo="Pular" variante="secundaria" onPress={pular} desabilitado={mudar.isPending} />
-        </View>
-        <View className="flex-1">
-          <Botao titulo="Descartar" variante="perigo" onPress={() => agir('descartado')} desabilitado={mudar.isPending} />
-        </View>
-      </View>
-
-      <LinkTexto titulo="Entrevistas e descartados" onPress={() => router.push(`/(empresa)/vaga/${id}/funil`)} />
-      <LinkTexto titulo="← Voltar pra vaga" onPress={() => router.push(`/(empresa)/vaga/${id}`)} />
+      <LinkTexto titulo="Ver entrevistas e descartados" onPress={() => router.push(`/(empresa)/vaga/${id}/funil`)} />
     </Screen>
   );
 }

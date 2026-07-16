@@ -25,42 +25,55 @@ export default function EmpresaLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: COR.marca,
-        tabBarInactiveTintColor: '#9db3b0',
+        tabBarActiveTintColor: '#ffffff',
+        tabBarInactiveTintColor: 'rgba(255,255,255,0.65)',
+        tabBarShowLabel: true,
+        // Dock flutuante arredondado (cara de app premium)
         tabBarStyle: {
-          backgroundColor: '#ffffff',
-          borderTopColor: '#e6f4f1',
-          borderTopWidth: 1,
-          height: 64,
-          paddingTop: 6,
-          paddingBottom: 10,
+          position: 'absolute',
+          left: 16,
+          right: 16,
+          bottom: 16,
+          height: 66,
+          borderRadius: 24,
+          borderTopWidth: 0,
+          backgroundColor: COR.marcaEscura,
+          paddingTop: 8,
+          paddingBottom: 8,
+          paddingHorizontal: 8,
+          shadowColor: '#0b3b3a',
+          shadowOpacity: 0.3,
+          shadowRadius: 20,
+          shadowOffset: { width: 0, height: 10 },
+          elevation: 12,
         },
+        tabBarItemStyle: { borderRadius: 16, marginHorizontal: 4 },
         tabBarLabelStyle: { fontWeight: '700', fontSize: 11 },
       }}>
       <Tabs.Screen
         name="vagas"
         options={{
           title: 'Vagas',
-          tabBarIcon: ({ color, size }) => <Ionicons name="briefcase-outline" size={size} color={color} />,
+          tabBarIcon: ({ color, focused }) => <Ionicons name={focused ? 'briefcase' : 'briefcase-outline'} size={23} color={color} />,
         }}
       />
       <Tabs.Screen
         name="plano"
         options={{
           title: 'Plano',
-          tabBarIcon: ({ color, size }) => <Ionicons name="card-outline" size={size} color={color} />,
+          tabBarIcon: ({ color, focused }) => <Ionicons name={focused ? 'card' : 'card-outline'} size={23} color={color} />,
         }}
       />
       <Tabs.Screen
         name="conta"
         options={{
           title: 'Conta',
-          tabBarIcon: ({ color, size }) => <Ionicons name="person-circle-outline" size={size} color={color} />,
+          tabBarIcon: ({ color, focused }) => <Ionicons name={focused ? 'person-circle' : 'person-circle-outline'} size={24} color={color} />,
         }}
       />
-      {/* Rotas sem aba própria (navegadas por push) */}
-      <Tabs.Screen name="onboarding" options={{ href: null }} />
-      <Tabs.Screen name="vaga" options={{ href: null }} />
+      {/* Rotas sem aba própria: escondem o dock e usam CTA/dock próprio */}
+      <Tabs.Screen name="onboarding" options={{ href: null, tabBarStyle: { display: 'none' } }} />
+      <Tabs.Screen name="vaga" options={{ href: null, tabBarStyle: { display: 'none' } }} />
     </Tabs>
   );
 }

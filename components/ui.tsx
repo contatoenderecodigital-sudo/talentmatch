@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { type ReactNode, useState } from 'react';
 import {
@@ -12,17 +13,36 @@ import {
 } from 'react-native';
 import { COR, GRAD_ESCURO, GRAD_FUNDO, GRAD_MARCA, SOMBRA, SOMBRA_SUAVE } from '@/lib/tema';
 
-/** Tela base: fundo com leve gradiente teal + conteúdo centralizado. */
-export function Screen({ children }: { children: ReactNode }) {
+/** Tela base: fundo com leve gradiente teal + conteúdo centralizado.
+ *  `rodape` fica fixo no rodapé (CTA), `flutuante` sobrepõe (ex.: FAB). */
+export function Screen({
+  children,
+  rodape,
+  flutuante,
+  semPad = false,
+}: {
+  children: ReactNode;
+  rodape?: ReactNode;
+  flutuante?: ReactNode;
+  semPad?: boolean;
+}) {
   return (
     <View className="flex-1">
       <LinearGradient colors={GRAD_FUNDO} style={StyleSheet.absoluteFill} />
       <ScrollView
         className="flex-1"
-        contentContainerClassName="w-full max-w-xl self-center p-6 pb-24"
+        contentContainerClassName={`w-full max-w-xl self-center ${semPad ? '' : 'px-5 pt-5'} ${rodape ? 'pb-40' : 'pb-28'}`}
         keyboardShouldPersistTaps="handled">
         {children}
       </ScrollView>
+      {flutuante}
+      {rodape ? (
+        <View
+          className="absolute bottom-0 left-0 right-0 border-t border-marca-100 bg-white/95 px-5 pb-8 pt-3"
+          style={SOMBRA}>
+          <View className="mx-auto w-full max-w-xl">{rodape}</View>
+        </View>
+      ) : null}
     </View>
   );
 }
@@ -32,11 +52,15 @@ export function Cabecalho({
   titulo,
   subtitulo,
   escuro = false,
+  aoVoltar,
+  direita,
   children,
 }: {
   titulo: string;
   subtitulo?: string;
   escuro?: boolean;
+  aoVoltar?: () => void;
+  direita?: ReactNode;
   children?: ReactNode;
 }) {
   return (
@@ -44,10 +68,95 @@ export function Cabecalho({
       colors={escuro ? GRAD_ESCURO : GRAD_MARCA}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
-      style={[{ borderRadius: 24, padding: 22, marginBottom: 20 }, SOMBRA]}>
-      <Text className="text-2xl font-extrabold text-white">{titulo}</Text>
+      style={[{ borderRadius: 26, padding: 22, marginBottom: 18 }, SOMBRA]}>
+      {(aoVoltar || direita) && (
+        <View className="mb-3 flex-row items-center justify-between">
+          {aoVoltar ? (
+            <Pressable onPress={aoVoltar} className="h-9 w-9 items-center justify-center rounded-full bg-white/20" accessibilityRole="button">
+              <Ionicons name="chevron-back" size={20} color="#fff" />
+            </Pressable>
+          ) : (
+            <View className="h-9 w-9" />
+          )}
+          {direita ?? null}
+        </View>
+      )}
+      <Text className="text-[27px] font-extrabold leading-tight text-white">{titulo}</Text>
       {subtitulo ? <Text className="mt-1 text-[15px] text-white/85">{subtitulo}</Text> : null}
       {children}
+    </LinearGradient>
+  );
+}
+
+/** Botão de ação flutuante (FAB) — canto inferior direito, acima da barra de abas. */
+export function FAB({ titulo, onPress, icone = 'add' }: { titulo?: string; onPress: () => void; icone?: keyof typeof Ionicons.glyphMap }) {
+  return (
+    <View className="absolute right-5" style={[{ bottom: 96 }, SOMBRA]}>
+      <Pressable accessibilityRole="button" onPress={onPress} className="overflow-hidden rounded-full">
+        <LinearGradient
+          colors={GRAD_MARCA}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 15, paddingHorizontal: titulo ? 20 : 15 }}>
+          <Ionicons name={icone} size={22} color="#fff" />
+          {titulo ? <Text className="text-base font-bold text-white">{titulo}</Text> : null}
+        </LinearGradient>
+      </Pressable>
+    </View>
+  );
+}
+
+/** Botão de ação circular (dock do deck). */
+export function BotaoCircular({
+  icone,
+  onPress,
+  variante = 'neutro',
+  grande = false,
+  desabilitado,
+}: {
+  icone: keyof typeof Ionicons.glyphMap;
+  onPress: () => void;
+  variante?: 'neutro' | 'sim' | 'nao';
+  grande?: boolean;
+  desabilitado?: boolean;
+}) {
+  const tam = grande ? 72 : 58;
+  const cor = variante === 'sim' ? COR.marca : variante === 'nao' ? '#e5484d' : '#33514f';
+  const conteudo = (
+    <View
+      style={[
+        { width: tam, height: tam, borderRadius: tam / 2, alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', opacity: desabilitado ? 0.4 : 1 },
+        SOMBRA,
+      ]}>
+      <Ionicons name={icone} size={grande ? 32 : 26} color={cor} />
+    </View>
+  );
+  if (variante === 'sim') {
+    return (
+      <Pressable onPress={onPress} disabled={desabilitado} accessibilityRole="button" className="overflow-hidden rounded-full" style={[{ opacity: desabilitado ? 0.5 : 1 }, SOMBRA]}>
+        <LinearGradient colors={GRAD_MARCA} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ width: tam, height: tam, borderRadius: tam / 2, alignItems: 'center', justifyContent: 'center' }}>
+          <Ionicons name={icone} size={grande ? 32 : 26} color="#fff" />
+        </LinearGradient>
+      </Pressable>
+    );
+  }
+  return (
+    <Pressable onPress={onPress} disabled={desabilitado} accessibilityRole="button">
+      {conteudo}
+    </Pressable>
+  );
+}
+
+/** Avatar circular com iniciais em gradiente. */
+export function Avatar({ nome, tam = 52 }: { nome: string; tam?: number }) {
+  const iniciais = nome.trim().split(/\s+/).slice(0, 2).map((p) => p[0]?.toUpperCase() ?? '').join('');
+  return (
+    <LinearGradient
+      colors={GRAD_MARCA}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={{ width: tam, height: tam, borderRadius: tam / 2, alignItems: 'center', justifyContent: 'center' }}>
+      <Text style={{ color: '#fff', fontWeight: '800', fontSize: tam * 0.36 }}>{iniciais}</Text>
     </LinearGradient>
   );
 }

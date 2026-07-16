@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { VagaForm, type DadosVaga } from '@/components/VagaForm';
-import { Carregando, LinkTexto, Screen, Subtitulo, Titulo } from '@/components/ui';
+import { Cabecalho, Carregando, Screen } from '@/components/ui';
 import { useEmpresa } from '@/hooks/useEmpresa';
 import { useVagaMutations } from '@/hooks/useVagas';
 import { traduzErroBanco } from '@/lib/erros';
@@ -28,10 +28,8 @@ export default function NovaVaga() {
 
   return (
     <Screen>
-      <Titulo>Nova vaga</Titulo>
-      <Subtitulo>Ao criar, você recebe o link do quiz pra distribuir</Subtitulo>
+      <Cabecalho titulo="Nova vaga" subtitulo="Ao criar, você recebe o link do quiz pra distribuir" aoVoltar={() => router.back()} />
       <VagaForm onSalvar={salvar} salvando={criar.isPending} erro={erro} />
-      <LinkTexto titulo="Cancelar" onPress={() => router.back()} />
     </Screen>
   );
 }

@@ -3,7 +3,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { Text, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
-import { Alerta, Botao, Carregando, Chip, LinkTexto, Screen, Subtitulo, Titulo } from '@/components/ui';
+import { Alerta, Botao, Cabecalho, Carregando, LinkTexto, Screen } from '@/components/ui';
 import { useVaga, useVagaMutations } from '@/hooks/useVagas';
 import { traduzErroBanco } from '@/lib/erros';
 import { quizUrl } from '@/lib/links';
@@ -34,13 +34,16 @@ export default function DetalheVaga() {
 
   return (
     <Screen>
-      <View className="flex-row items-center justify-between">
-        <Titulo>{v.titulo}</Titulo>
-        <Chip texto={v.status} tom={v.status === 'aberta' ? 'verde' : v.status === 'pausada' ? 'azul' : 'cinza'} />
-      </View>
-      <Subtitulo>
-        {v.cidade} · {v.modalidade} · {v.periodo}
-      </Subtitulo>
+      <Cabecalho
+        titulo={v.titulo}
+        subtitulo={`${v.cidade} · ${v.modalidade} · ${v.periodo}`}
+        aoVoltar={() => router.push('/(empresa)/vagas')}
+        direita={
+          <View className="rounded-full bg-white/20 px-3 py-1">
+            <Text className="text-xs font-bold text-white">{v.status}</Text>
+          </View>
+        }
+      />
       {erro ? <Alerta tipo="erro">{erro}</Alerta> : null}
 
       <View className="mb-4 rounded-xl border border-gray-200 bg-white p-4">
@@ -88,8 +91,6 @@ export default function DetalheVaga() {
       ) : (
         <Botao titulo="Reabrir vaga" variante="secundaria" onPress={() => status('aberta')} carregando={mudarStatus.isPending} />
       )}
-
-      <LinkTexto titulo="← Minhas vagas" onPress={() => router.push('/(empresa)/vagas')} />
     </Screen>
   );
 }
